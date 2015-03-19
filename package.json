@@ -1,0 +1,30 @@
+{
+  "name": "3ch_react_sandbox",
+  "description": "3ch react sandbox",
+  "version": "0.0.1",
+  "author": {
+    "name": "hkdnet",
+    "email": "hkdnet@users.noreply.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": {
+    "url": ""
+  },
+  "main": "app.js",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "scripts": {
+  },
+  "devDependencies": {
+    "gulp": "3.8.11",
+    "react-tools": "0.13.1",
+    "json-server": "0.6.4"
+  },
+  "peerDependencies": {
+    "json-server": "0.6.4"
+  }
+}
