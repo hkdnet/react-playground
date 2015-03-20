@@ -12,23 +12,20 @@ gulp.task('build.copy', function() {
     .pipe(gulp.dest('public/stylesheets'));
 });
 
-gulp.task('browserify', function(){
+gulp.task('build.react', function(){
   var b = browserify({
     entries: ['./src/javascripts/hello.jsx'],
     transform: [reactify]
   });
   return b.bundle()
-    .pipe(source('hello.js'))
+    .pipe(source('main.js'))
     .pipe(gulp.dest('./public/javascripts'));
 });
 
-gulp.task('build', function() {
-  gulp.run('build.copy');
-  gulp.run('browserify');
-})
+gulp.task('build', ['build.copy','build.react']);
 
-gulp.task('run', function() {
-  gulp.run('build');
+gulp.task('run', ['build'], function() {
   var exec = require("child_process").exec
   exec('json-server db.json')
+  console.log('db ok')
 });
