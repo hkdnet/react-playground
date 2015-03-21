@@ -14,7 +14,7 @@ gulp.task('build.copy', function() {
 
 gulp.task('build.react', function(){
   var b = browserify({
-    entries: ['./src/javascripts/CommentBox.jsx'],
+    entries: ['./src/javascripts/main.js'],
     transform: [reactify]
   });
   return b.bundle()

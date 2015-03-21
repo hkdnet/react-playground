@@ -31,5 +31,8 @@
     "json-server": "0.6.4"
   },
   "favicon.ico": [],
-  "javascripts": []
+  "javascripts": [],
+  "dependencies": {
+    "glob": "^5.0.3"
+  }
 }
