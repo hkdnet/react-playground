@@ -1,5 +1,7 @@
-var React = require('React');
+var React = require('react');
 var converter = new Showdown.converter();
+window.Promise = require('bluebird');
+window.request = require('superagent');
 
 var Comment = React.createClass({
   render: function() {
@@ -41,11 +43,25 @@ var CommentForm = React.createClass({
 });
 
 var CommentBox = React.createClass({
+  getInitialState: function() {
+    return {data: []}
+  },
+  componentDidMount: function() {
+    request
+      .get('/comments')
+      .end(function(err, res) {
+        if (err) {
+          console.log(err)
+        } else {
+          this.setState({data: res.body})
+        }
+      }.bind(this))
+  },
   render: function() {
     return (
       <div className="commentBox">
         <h1>Comments</h1>
-        <CommentList data={ this.props.data }/>
+        <CommentList data={ this.state.data }/>
         <CommentForm />
       </div>
     )
@@ -58,6 +74,6 @@ var data = [
 ];
 
 React.render(
-  <CommentBox data={data} />,
+  <CommentBox url="/comments" />,
   document.getElementById('content')
 )
