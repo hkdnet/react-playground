@@ -71,6 +71,9 @@ var CommentBox = React.createClass({
     return request.post(this.props.url).send(d)
   },
   handleCommentSubmit: function(d) {
+    var s = this.state;
+    s.data.push(d);
+    this.setState(s);
     this.postComment(d).end(function(err, res) {
       if (err) {
         console.error(err)
