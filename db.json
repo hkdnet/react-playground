@@ -1,16 +1,12 @@
 {
-  "posts": [
-    {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
   "comments": [
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "author": "Nico Yazawa",
+      "text": "Nico nico nii~"
+    },
+    {
+      "author": "Aoba Suzukaze",
+      "text": "zoi"
     }
   ],
   "favicon.ico": []

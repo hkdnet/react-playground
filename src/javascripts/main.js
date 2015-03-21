@@ -1,10 +1,30 @@
 var React = require('React');
+var converter = new Showdown.converter();
+
+var Comment = React.createClass({
+  render: function() {
+    var rawMarkup = converter.makeHtml(this.props.children.toString())
+    return (
+      <div className="comment">
+        <h2 className="commentAuthor">
+          { this.props.author }
+        </h2>
+        <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
+      </div>
+    )
+  }
+});
 
 var CommentList = React.createClass({
   render: function() {
+    var comments = this.props.data.map(function(c) {
+      return (
+        <Comment author={c.author}>{c.text}</Comment>
+      )
+    })
     return (
       <div className="commentList">
-        Hello, world! I am a CommentList.
+        {comments}
       </div>
     )
   }
@@ -25,14 +45,19 @@ var CommentBox = React.createClass({
     return (
       <div className="commentBox">
         <h1>Comments</h1>
-        <CommentList />
+        <CommentList data={ this.props.data }/>
         <CommentForm />
       </div>
     )
   }
-})
+});
+
+var data = [
+  {"author":"Nico Yazawa","text":"Nico nico nii~"},
+  {"author":"Aoba Suzukaze","text":"zoi"}
+];
 
 React.render(
-  React.createElement(CommentBox, null),
+  <CommentBox data={data} />,
   document.getElementById('content')
 )
