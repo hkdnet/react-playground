@@ -28,7 +28,7 @@ gulp.task('json-server', function() {
   var jsonServer = require('json-server')
   var object = require('./db.json');
 
-  var router = jsonServer.router(object) // Express router
+  var router = jsonServer.router('./db.json'); // Express router
   var server = jsonServer.create()       // Express server
   var port = 3000;
   server.use(router)
