@@ -33,7 +33,6 @@
   "favicon.ico": [],
   "javascripts": [],
   "dependencies": {
-    "bluebird": "^2.9.14",
     "glob": "^5.0.3",
     "superagent": "^1.1.0"
   }
