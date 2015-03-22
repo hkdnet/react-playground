@@ -1,26 +1,63 @@
 var React = require('react');
 var converter = new Showdown.converter();
-window.request = require('superagent');
+var dateFormat = require('dateformat');
+var request = require('superagent');
+
+var CommentHeader = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <i className="fa fa-user" />
+        <span className="author">{ this.props.author }</span>
+      </div>
+    )
+  }
+})
+var CommentFooter = React.createClass({
+  render: function() {
+    return(
+      <div className="commentFooter">
+        <i className="fa fa-clock-o" />
+        { dateFormat(this.props.postdate, "yyyy-mm-dd HH:MM") }
+      </div>
+    )
+  }
+})
 
 var Comment = React.createClass({
   render: function() {
     var rawMarkup = converter.makeHtml(this.props.children.toString())
     return (
       <div className="comment">
-        <h2 className="commentAuthor">
-          { this.props.author }
-        </h2>
-        <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
+        <CommentHeader author={ this.props.author } />
+        <div>
+          <i className="fa fa-comment-o" />
+          <div className="commentBody" dangerouslySetInnerHTML={{ __html: rawMarkup }} />
+        </div>
+        <CommentFooter postdate={ this.props.postdate } />
       </div>
     )
   }
 });
 
+var EditButton = React.createClass({
+  handleClick: function(e) {
+    console.log('edit is not implemented yet, sorry....')
+  },
+  render: function() {
+    return(
+      <button className="edit" onClick={ this.handleClick }>Edit</button>
+    )
+  }
+})
+
 var CommentList = React.createClass({
   render: function() {
     var comments = this.props.data.map(function(c) {
       return (
-        <Comment author={ c.author }>{ c.text }</Comment>
+        <Comment author={ c.author } postdate={ c.postdate }>
+          { c.text }
+        </Comment>
       )
     })
     return (
@@ -46,7 +83,8 @@ var CommentForm = React.createClass({
   render: function() {
     return (
       <form className="commentForm" onSubmit={ this.handleSubmit }>
-        <input type="text" ref="author" placeholder="name" />
+        <h2>New Comment</h2>
+        <input type="text" ref="author" placeholder="name" /><br />
         <input type="text" ref="text" placeholder="say something..." />
         <input type="submit" value="Post" />
       </form>
