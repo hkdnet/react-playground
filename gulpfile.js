@@ -14,7 +14,7 @@ gulp.task('build.copy', function() {
 
 gulp.task('build.react', function(){
   var b = browserify({
-    entries: ['./src/javascripts/hello.jsx'],
+    entries: ['./src/javascripts/main.js'],
     transform: [reactify]
   });
   return b.bundle()
@@ -24,8 +24,16 @@ gulp.task('build.react', function(){
 
 gulp.task('build', ['build.copy','build.react']);
 
-gulp.task('run', ['build'], function() {
-  var exec = require("child_process").exec
-  exec('json-server db.json')
-  console.log('db ok')
-});
+gulp.task('json-server', function() {
+  var jsonServer = require('json-server')
+  var object = require('./db.json');
+
+  var router = jsonServer.router('./db.json'); // Express router
+  var server = jsonServer.create()       // Express server
+  var port = 3000;
+  server.use(router)
+  server.listen(port)
+  console.log('json-server is ready at port:' +  port)
+})
+
+gulp.task('run', ['build', 'json-server']);

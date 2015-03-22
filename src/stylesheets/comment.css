@@ -1,0 +1,20 @@
+.comment {
+  width: 400px;
+  border: 1px gray solid;
+  padding: 5px;
+  margin: 5px;
+}
+
+.commentFooter {
+  color: gray;
+  text-align: right;
+}
+
+.commentBody {
+  margin-left: 5px;
+  display: inline-block;
+}
+
+.author {
+  padding-left: 5px;
+}
